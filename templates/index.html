@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Code Payment</title>
+</head>
+<body>
+    <h2>QR Code for Payment</h2>
+    <img id="qrImg" src="" alt="QR Code will appear here" />
+    <button onclick="loadQRCode()">Generate QR Code</button>
+    
+    <script>
+        function loadQRCode() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/generate_qr', true);
+            xhr.responseType = 'blob';
+            
+            xhr.onload = function(e) {
+                if (this.status == 200) {
+                    var blob = this.response;
+                    var img = document.getElementById('qrImg');
+                    img.src = URL.createObjectURL(blob);
+                }
+            };
+            
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
